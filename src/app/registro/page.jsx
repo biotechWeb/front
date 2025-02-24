@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+import ModalPoliticaDatos from "@/components/politicaDatos";
 
 const especialidades = [
     "Algología",
@@ -114,6 +115,7 @@ export default function RegisterPage() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [passwordMatch, setPasswordMatch] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -248,13 +250,14 @@ export default function RegisterPage() {
                         </div>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 text-white">
                             ¿Como se entero de BiotechPharma?
-                            <select name="howDidYouKnow" className="input" onChange={handleChange}>
+                            <select name="howDidYouKnow" className="input text-black" onChange={handleChange}>
+                                <option>Visita médica</option>
                                 <option>Redes Sociales</option>
                                 <option>Colega</option>
-                                <option>Visita médica</option>
                                 <option>Otro</option>
                             </select>
                         </div>
+                        <ModalPoliticaDatos isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
                         <div className="space-y-2">
                             <div className="flex items-center">
                                 <input type="checkbox" name="isHealthProfessional" onChange={handleChange} required
@@ -265,10 +268,17 @@ export default function RegisterPage() {
                             <div className="flex items-center">
                                 <input type="checkbox" name="acceptTerms" onChange={handleChange} required
                                        className="mr-2"/>
-                                <label className="text-white text-sm">Declaro que he leído y autorizo el tratamiento de
-                                    mis datos personales de acuerdo a la <a href="/politica-datos"
-                                                                            className="underline">Política de Protección
-                                        de Datos Personales</a>.</label>
+                                <label className="text-white text-sm">
+                                    Declaro que he leído y autorizo el tratamiento de mis datos personales de acuerdo a
+                                    la
+                                    <button
+                                        type="button"
+                                        onClick={() => setIsModalOpen(true)}
+                                        className="text-green-400 hover:text-green-200 underline ml-1"
+                                    >
+                                        Política de Protección de Datos Personales.
+                                    </button>
+                                </label>
                             </div>
                         </div>
                         <div className='flex justify-center'>
