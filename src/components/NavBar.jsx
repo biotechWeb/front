@@ -37,12 +37,12 @@ export default function Navbar() {
                         <Link href="/" className="text-gray-700 hover:text-gray-900">
                             Inicio
                         </Link>
-                        <Link href="/contacto" className="text-gray-700 hover:text-gray-900">
-                            Contacto
-                        </Link>
-                        <Link href="/nosotros" className="text-gray-700 hover:text-gray-900">
-                            Nosotros
-                        </Link>
+                        {/*<Link href="/contacto" className="text-gray-700 hover:text-gray-900">*/}
+                        {/*    Contacto*/}
+                        {/*</Link>*/}
+                        {/*<Link href="/nosotros" className="text-gray-700 hover:text-gray-900">*/}
+                        {/*    Nosotros*/}
+                        {/*</Link>*/}
 
                         {/* Si el usuario está autenticado, mostrar nombre y logout */}
                         {user ? (
