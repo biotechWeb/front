@@ -10,6 +10,7 @@ export default function SessionPage() {
     const router = useRouter();
     const params = useParams();
     const [session, setSession] = useState(null);
+    console.log(session)
     const [error, setError] = useState("");
 
     useEffect(() => {
@@ -24,19 +25,12 @@ export default function SessionPage() {
         const fetchSession = async () => {
             try {
                 const docRef = doc(db, "courses", params.id);
-                const docSnap = await getDoc(docRef, { source: "cache" }); // 🔥 Intenta leer desde la caché
+                const docSnap = await getDoc(docRef);
 
-                if (!docSnap.exists()) {
-                    // Si no está en caché, intenta obtenerlo desde el servidor
-                    const docSnapServer = await getDoc(docRef, { source: "server" });
-                    if (docSnapServer.exists()) {
-                        console.log('encuentra cache')
-                        setSession(docSnapServer.data());
-                    } else {
-                        setError("Sesión no encontrada.");
-                    }
-                } else {
+                if (docSnap.exists()) {
                     setSession(docSnap.data());
+                } else {
+                    setError("Sesión no encontrada.");
                 }
             } catch (err) {
                 setError("Error cargando la sesión.");
@@ -66,7 +60,7 @@ export default function SessionPage() {
                                 <iframe
                                     width="70%"
                                     height="400"
-                                    src={session.videos[0]} // Toma el primer video de la lista
+                                    src={`${session.videos[0]}?nocache=${Date.now()}`}
                                     title="Video de la sesión"
                                     frameBorder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
