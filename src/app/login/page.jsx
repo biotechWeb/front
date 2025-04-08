@@ -72,7 +72,7 @@ export default function LoginPage() {
                             className="absolute right-3 top-3 text-gray-500"
                             onClick={() => setShowPassword(!showPassword)}
                         >
-                            {showPassword ? <EyeSlashIcon className="h-6 w-6" /> : <EyeIcon className="h-6 w-6" />}
+                            {showPassword ? <EyeSlashIcon className="h-6 w-6"/> : <EyeIcon className="h-6 w-6"/>}
                         </button>
                     </div>
 
@@ -85,6 +85,9 @@ export default function LoginPage() {
                             {loading ? "Iniciando sesión..." : "Iniciar Sesión"}
                         </button>
                     </div>
+                    <p className="text-sm text-center text-blue-200 mt-4">
+                        <a href="/recuperacion" className="hover:underline">¿Olvidaste tu contraseña?</a>
+                    </p>
                 </form>
 
                 <div className="flex justify-center mt-6">

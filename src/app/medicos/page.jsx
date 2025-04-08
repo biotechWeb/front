@@ -10,7 +10,6 @@ export default function MedicosPage() {
     const { user, loading } = useAuth();
     const router = useRouter();
     const [courses, setCourses] = useState([]);
-    console.log(courses)
     const [error, setError] = useState("");
 
     useEffect(() => {
@@ -44,6 +43,17 @@ export default function MedicosPage() {
             <h1 className="text-3xl font-bold mb-6">Biotech Charlas</h1>
 
             {error && <p className="text-red-500">{error}</p>}
+
+            {user?.isAdmin && (
+                <div className="mb-6">
+                    <Link
+                        href="/admin"
+                        className="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition"
+                    >
+                        Ir al Panel de Administración
+                    </Link>
+                </div>
+            )}
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {courses.map((course) => (

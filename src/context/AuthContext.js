@@ -13,10 +13,23 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
             if (firebaseUser) {
-                const userDoc = await getDoc(doc(db, "users", firebaseUser.uid));
-                if (userDoc.exists() && userDoc.data().approved) {
-                    setUser({ uid: firebaseUser.uid, ...userDoc.data() });
-                } else {
+                try {
+                    const userDoc = await getDoc(doc(db, "users", firebaseUser.uid));
+                    const tokenResult = await firebaseUser.getIdTokenResult();
+                    const isAdmin = tokenResult.claims.admin === true;
+
+                    if (userDoc.exists() && userDoc.data().approved) {
+                        setUser({
+                            uid: firebaseUser.uid,
+                            email: firebaseUser.email,
+                            isAdmin,
+                            ...userDoc.data(),
+                        });
+                    } else {
+                        setUser(null);
+                    }
+                } catch (err) {
+                    console.error("Error cargando datos del usuario:", err);
                     setUser(null);
                 }
             } else {
