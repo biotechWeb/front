@@ -20,7 +20,7 @@ export default function Home() {
             {/* Contenido encima de la imagen */}
             <div className="relative z-10 px-6 text-white">
                 <h1 className="text-4xl md:text-8xl font-extrabold mb-4 drop-shadow-lg">
-                    Bienvenido a BiotechPharma
+                    Bienvenido a Biotech Pharma
                 </h1>
                 <p className="text-lg md:text-3xl max-w-2xl mx-auto mb-8 drop-shadow">
                     Salud que conecta, calidad que inspira.
