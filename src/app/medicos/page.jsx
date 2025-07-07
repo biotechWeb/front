@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { db } from "@/lib/firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -21,12 +21,13 @@ export default function MedicosPage() {
     useEffect(() => {
         const fetchCourses = async () => {
             try {
-                const querySnapshot = await getDocs(collection(db, "courses"));
+                const q = query(collection(db, "courses"), orderBy("createdAt", "desc"));
+                const querySnapshot = await getDocs(q);
                 const coursesData = querySnapshot.docs.map((doc) => ({
                     id: doc.id,
                     ...doc.data(),
                 }));
-                setCourses(coursesData.reverse());
+                setCourses(coursesData);
             } catch (err) {
                 setError("Error cargando los cursos");
             }
