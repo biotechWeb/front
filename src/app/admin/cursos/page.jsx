@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { db } from "@/lib/firebase";
-import { collection, addDoc, getDocs, updateDoc, doc } from "firebase/firestore";
+import { collection, addDoc, getDocs, updateDoc, doc, serverTimestamp } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 
 export default function AdminCursosPage() {
@@ -75,6 +75,7 @@ export default function AdminCursosPage() {
                 description: description.trim(),
                 materialMedico: materialMedicoUrls,
                 videos: videos.filter((v) => v.trim() !== ""),
+                createdAt: serverTimestamp(),
             };
             console.log("Guardando en Firestore:", courseData);
 
